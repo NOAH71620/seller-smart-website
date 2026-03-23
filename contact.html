@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact - Design System</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <nav>
+        <div class="logo">MyCompany</div>
+        <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+        <ul id="navbar">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html" class="active">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section>
+        <div class="container">
+            <h2>Contact Us</h2>
+            <form id="contact-form" novalidate>
+                <input type="text" id="name" name="name" placeholder="Your Name" required />
+                <input type="email" id="email" name="email" placeholder="Your Email" required />
+                <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+
+            <div class="contact-info">
+                <div class="contact-card">
+                    <h4>Address</h4>
+                    <p>123 Main Street, City, Country</p>
+                </div>
+                <div class="contact-card">
+                    <h4>Phone</h4>
+                    <p>+123 456 7890</p>
+                </div>
+                <div class="contact-card">
+                    <h4>Email</h4>
+                    <p>info@mycompany.com</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Form validation
+        document.getElementById('contact-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const name = document.getElementById('name');
+            const email = document.getElementById('email');
+            const message = document.getElementById('message');
+
+            if (!name.value || !email.value || !message.value) {
+                alert('Please fill out all fields.');
+                return;
+            }
+            if (!email.checkValidity()) {
+                alert('Please enter a valid email.');
+                return;
+            }
+            alert('Message sent! Thanks for reaching out.');
+            this.reset();
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+
+</html>
