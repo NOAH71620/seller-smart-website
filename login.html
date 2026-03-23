@@ -61,25 +61,31 @@
     </div>
 
     <script>
-        function login() {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+       public class LoginServlet extends HttpServlet {
+    // Dummy user data for demonstration purposes
+    private static final String USER_EMAIL = "user@example.com";
+    private static final String USER_PASSWORD = "password123";
 
-            // Simple check - in real case, you'd verify against a server
-            if (email && password) {
-                // Save login status
-                localStorage.setItem('loggedIn', 'true');
-                // Redirect to home page
-                window.location.href = 'index.html';
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        
+        if (email != null && password != null) {
+            if (email.equals(USER_EMAIL) && password.equals(USER_PASSWORD)) {
+                // Successful login
+                HttpSession session = request.getSession();
+                session.setAttribute("user", email);
+                response.sendRedirect("welcome.jsp");
             } else {
-                alert('Please enter username and password');
+                // Invalid credentials
+                response.sendRedirect("login.html?error=invalid");
             }
+        } else {
+            // Missing parameters
+            response.sendRedirect("login.html?error=missing");
         }
-
-        // Check if already logged in
-        if (localStorage.getItem('loggedIn') === 'true') {
-            window.location.href = 'index.html';
-        }
+    }
+}
     </script>
 </body>
 
