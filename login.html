@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login Page</title>
+    <title>Login with Gmail</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -51,41 +51,31 @@
 <body>
 
     <div class="login-box">
-         <h2>Login</h2>
-  <form action="/submit_login" method="POST">
-    <label for="email">Email:</label><br/>
-    <input type="email" id="email" name="email" required /><br/><br/>
-    <label for="password">Password:</label><br/>
-    <input type="password" id="password" name="password" required /><br/><br/>
-    <button type="submit">Login</button>
+        <h2>Login with Gmail</h2>
+        <input type="text" id="gmail" placeholder="Gmail Address" />
+        <button onclick="login()">Login</button>
     </div>
 
     <script>
-       public class LoginServlet extends HttpServlet {
-    // Dummy user data for demonstration purposes
-    private static final String USER_EMAIL = "user@example.com";
-    private static final String USER_PASSWORD = "password123";
+        function login() {
+            const gmail = document.getElementById('gmail').value.trim();
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        
-        if (email != null && password != null) {
-            if (email.equals(USER_EMAIL) && password.equals(USER_PASSWORD)) {
-                // Successful login
-                HttpSession session = request.getSession();
-                session.setAttribute("user", email);
-                response.sendRedirect("welcome.jsp");
+            // Check if input is a valid Gmail address
+            if (gmail && gmail.endsWith("@gmail.com")) {
+                // Save login status
+                localStorage.setItem('loggedIn', 'true');
+                localStorage.setItem('userEmail', gmail);
+                // Redirect to home page
+                window.location.href = 'index.html';
             } else {
-                // Invalid credentials
-                response.sendRedirect("login.html?error=invalid");
+                alert('Please enter a valid Gmail address ending with "@gmail.com"');
             }
-        } else {
-            // Missing parameters
-            response.sendRedirect("login.html?error=missing");
         }
-    }
-}
+
+        // Check if already logged in
+        if (localStorage.getItem('loggedIn') === 'true') {
+            window.location.href = 'index.html';
+        }
     </script>
 </body>
 
